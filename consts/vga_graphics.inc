@@ -1,0 +1,30 @@
+.include "mmio_basic.inc" once
+
+.define VGA_DEV_BASE        #MMIO_BASE + 0x7c00000
+
+;; REGISTERS
+.define VGA_VIDEO_CONTROL   #VGA_DEV_BASE + 0x00
+.define VGA_VIDEO_MODE      #VGA_DEV_BASE + 0x04
+.define VGA_VIDEO_STATUS    #VGA_DEV_BASE + 0x08
+.define VGA_FBUF_WIDTH      #VGA_DEV_BASE + 0x0C
+.define VGA_FBUF_HEIGHT     #VGA_DEV_BASE + 0x10
+
+; FRAMEBUFFER SWITCH (RGB MODE)
+.define VGA_FBUF_INDEX      #VGA_DEV_BASE + 0x14
+
+; CURSOR CONTROL (TEXT MODE)
+.define VGA_CURSOR_X        #VGA_DEV_BASE + 0x18
+.define VGA_CURSOR_Y        #VGA_DEV_BASE + 0x1C
+.define VGA_CURSOR_POS      #VGA_DEV_BASE + 0x20
+.define VGA_CURSOR_CONTROL  #VGA_DEV_BASE + 0x24
+
+; BUFFERS
+.define VGA_VRAM_BASE       #VGA_DEV_BASE + 0xF0
+; RGB MODE BUFFERS
+.define VGA_RGB_FB0_BASE    #VGA_VRAM_BASE + 0x00 ; first framebuffer
+.define VGA_RGB_FB1_BASE    #VGA_VRAM_BASE + 0x12c000 ; 2nd one
+; TEXT MODE BUFFER
+.define VGA_TEXT_VRAM_BASE  #VGA_VRAM_BASE + 0x258000
+
+; CONSTANTS
+.define VGA_MODE_TEXT       0x00
