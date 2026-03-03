@@ -62,3 +62,22 @@ console_backspace:
         JMP     _finish
     _finish:
         RET
+
+; function: console_puts(char* c, size_t len) -> void
+; @clobbers: R2 (arg0), R3 (arg1), R4, R5, R6, R7, R8
+console_puts:
+    MOV     R7, R2 ; pointer to text
+    MOV     R8, R3
+    _loop:
+        ; for (i = R3; i >= 0; i--)
+        CMP     R8, RZERO
+        JEQ     __finish
+        ; load next char to R2
+        LDB     R2, [R7]
+        CALL    console_putc
+        ; update counter
+        ADDI    R7, 1
+        ADDI    R8, -1
+        JMP     _loop
+    __finish:
+        RET

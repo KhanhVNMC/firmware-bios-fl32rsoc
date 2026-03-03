@@ -18,11 +18,16 @@ test_string .asciz "Hello World And Fuck Myself"
 ; bios global entrypoint
 _main:
     LDI   RSP, 0xFFFFF ; just a bare stack to get stuff started
-    CALL test
+    CALL  vga_hw_init
+
+    LEA   R2, $test_string
+    LDI   R3, 11
+    CALL  console_puts
+    JMP   spin
+
     KILL
 
 test:
-    CALL  vga_hw_init
     LEA   R15, $test_string
     print:
         LDB     R2, [R15]
