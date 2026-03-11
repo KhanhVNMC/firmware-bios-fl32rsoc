@@ -4,10 +4,11 @@ _start: JMP _main
 
 .include "console.s" once
 .include "drivers/soc_platform.s" once
+.include "test.s" once
 
 @data
 bios_brand_str_1  .ascii "Virtual SoC - ReferenceBIOS v1.00PC, FL32R Ref. System"
-bios_brand_str_2  .ascii "Copyright (C) 2026, Why Are You Reading This"
+bios_brand_str_2  .ascii "Copyright (C) 2026, Why Are You Reading This? Inc."
 bios_brand_str_3  .ascii "DEMO SYS-E SOC-PLT BIOS Revision 0"
 
 cpu_model_str     .ascii "Main Processor: "
@@ -28,6 +29,7 @@ end_message       .ascii "Press DEL to *not* enter SETUP, F8 to *not* Enter Boot
 _main:
     LDI   RSP, 0xFFFFF ; just a bare stack to get stuff started
     CALL  vga_hw_init
+    CALL  proc_test_keyboard ; never returns, this is keyboard test
     ; print header & branding
     LEA   R2, $bios_brand_str_1
     LDI   R3, length($bios_brand_str_1)
